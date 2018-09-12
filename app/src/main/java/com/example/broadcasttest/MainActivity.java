@@ -35,7 +35,13 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            Toast.makeText(context, "network change", Toast.LENGTH_SHORT).show();
+            ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+            NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+            if (networkInfo != null && networkInfo.isAvailable()) {
+                Toast.makeText(context, "network is available", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(context, "network is unavailable", Toast.LENGTH_SHORT).show();
+            }
         }
     }
 }
